@@ -1,28 +1,22 @@
-# FVE Výroba – Graf
+# FVE Výroba – Graf (aktualizovaná verze)
 
-Tato Streamlit aplikace umožňuje nahrát CSV soubor s daty výroby z fotovoltaické elektrárny a zobrazit přehledný graf výkonu v čase.
+Streamlit aplikace pro vizualizaci dat z FVE z CSV souboru, včetně zobrazení grafu výkonu, tabulky 10 nejvyšších hodnot a zvýraznění denních maxim.
 
-## 🔧 Funkce
-- Detekce sloupců s datem a výkonem automaticky
-- Podpora českého formátu CSV (kódování Windows-1250 i UTF-8)
-- Interaktivní graf pomocí Matplotlib
+## 🔄 Co je nového
+- Tabulka s top 10 hodnotami
+- Zvýraznění denních maxim v grafu (červené body)
 
-## 📦 Spuštění lokálně
+## 🛠️ Jak aktualizovat stávající GitHub repozitář
+
+1. Nahraj nový soubor `app.py` do stejného repozitáře na GitHubu
+2. Nahraď původní soubor (Commit changes)
+3. Není potřeba měnit `requirements.txt`, zůstává stejné
+4. Přejdi na [https://streamlit.io/cloud](https://streamlit.io/cloud) a tvá aplikace se automaticky aktualizuje
+
+## 📦 Lokální spuštění
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## ☁️ Nasazení na Streamlit Cloud
-1. Vytvoř účet na [https://streamlit.io/cloud](https://streamlit.io/cloud)
-2. Propoj s GitHubem
-3. Vyber tento repozitář a `app.py` jako hlavní soubor
-4. Deployni!
-
-## 📁 Formát CSV
-
-```csv
-Datum;"-A/60008963 [kW]";Status
-01.05.2025 00:15;0,033;naměřená data OK;
-```
