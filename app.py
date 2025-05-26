@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 import io
+import calendar
 
 st.set_page_config(page_title="FVE Výroba - Graf", layout="wide")
 st.title("📈 Zobrazení profilu výroby FVE z CSV souboru")
@@ -35,29 +36,33 @@ if uploaded_file is not None:
             df = df.dropna(subset=['datetime'])
             df.set_index('datetime', inplace=True)
 
-            # Určení maximálního výkonu pro každý den
-            df_daily_max = df['vykon_kW'].resample('D').max()
-            max_dates = df[df['vykon_kW'].isin(df_daily_max.values)].index
+            # Rozdělení po měsících
+            for (year, month), df_month in df.groupby([df.index.year, df.index.month]):
+                month_name = f"{calendar.month_name[month]} {year}"
 
-            # Vykreslení grafu
-            st.subheader("Graf výkonu FVE")
-            fig, ax = plt.subplots(figsize=(14, 6))
-            ax.plot(df.index, df['vykon_kW'], label='Výkon FVE [kW]', color='blue')
-            ax.scatter(max_dates, df.loc[max_dates, 'vykon_kW'], color='red', label='Denní maximum', zorder=5)
-            ax.set_title('Profil výroby FVE')
-            ax.set_xlabel('Datum a čas')
-            ax.set_ylabel('Výkon [kW]')
-            ax.grid(True)
-            ax.legend()
-            st.pyplot(fig)
+                # Určení maximálního výkonu pro každý den v měsíci
+                df_daily_max = df_month['vykon_kW'].resample('D').max()
+                max_dates = df_month[df_month['vykon_kW'].isin(df_daily_max.values)].index
 
-            # Tabulka 10 nejvyšších hodnot
-            st.subheader("🔟 Nejvyšší hodnoty výkonu")
-            top10 = df['vykon_kW'].nlargest(10).reset_index()
-            top10.index += 1  # začít číslování od 1
-            top10.columns = ['Datum a čas', 'Výkon [W]']
-            top10['Výkon [W]'] = (top10['Výkon [W]'] * 1000).round(2)  # převod na watty
-            st.dataframe(top10)
+                # Vykreslení grafu
+                st.subheader(f"Graf výkonu FVE (15minutová maxima) – {month_name}")
+                fig, ax = plt.subplots(figsize=(14, 6))
+                ax.plot(df_month.index, df_month['vykon_kW'], label='Výkon FVE [kW]', color='blue')
+                ax.scatter(max_dates, df_month.loc[max_dates, 'vykon_kW'], color='red', label='Denní maximum', zorder=5)
+                ax.set_title(f'Profil výroby FVE – {month_name}')
+                ax.set_xlabel('Datum a čas')
+                ax.set_ylabel('Výkon [kW]')
+                ax.grid(True)
+                ax.legend()
+                st.pyplot(fig)
+
+                # Tabulka 10 nejvyšších hodnot v měsíci
+                st.subheader(f"🔟 Nejvyšší hodnoty výkonu – {month_name}")
+                top10 = df_month['vykon_kW'].nlargest(10).reset_index()
+                top10.index += 1  # začít číslování od 1
+                top10.columns = ['Datum a čas', 'Výkon [W]']
+                top10['Výkon [W]'] = (top10['Výkon [W]'] * 1000).round(2)  # převod na watty
+                st.dataframe(top10)
 
     except Exception as e:
         st.error(f"Chyba při zpracování souboru: {str(e)}")

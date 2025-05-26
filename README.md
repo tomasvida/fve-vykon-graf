@@ -1,17 +1,13 @@
-# FVE Výroba – Graf (aktualizovaná verze)
+# FVE Výroba – Graf (měsíční členění)
 
-Streamlit aplikace pro vizualizaci dat z FVE z CSV souboru, včetně zobrazení grafu výkonu, tabulky 10 nejvyšších hodnot a zvýraznění denních maxim.
+Streamlit aplikace pro vizualizaci dat z FVE z CSV souboru, včetně zobrazení:
+- grafů rozdělených po jednotlivých měsících
+- tabulek s 10 nejvyššími hodnotami výkonu pro každý měsíc
 
-## 🔄 Co je nového
-- Tabulka s top 10 hodnotami
-- Zvýraznění denních maxim v grafu (červené body)
-
-## 🛠️ Jak aktualizovat stávající GitHub repozitář
-
-1. Nahraj nový soubor `app.py` do stejného repozitáře na GitHubu
-2. Nahraď původní soubor (Commit changes)
-3. Není potřeba měnit `requirements.txt`, zůstává stejné
-4. Přejdi na [https://streamlit.io/cloud](https://streamlit.io/cloud) a tvá aplikace se automaticky aktualizuje
+## 🆕 Co je nového
+- Automatické rozdělení grafu po kalendářních měsících
+- Každý měsíc má svůj vlastní graf a vlastní top 10 tabulku
+- Zvýraznění denních maxim v grafech
 
 ## 📦 Lokální spuštění
 
@@ -20,3 +16,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+## ☁️ Nasazení na Streamlit Cloud
+1. Přihlas se na [https://streamlit.io/cloud](https://streamlit.io/cloud)
+2. Vyber tento repozitář a soubor `app.py`
+3. Klikni „Deploy“ a je hotovo!
