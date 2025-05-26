@@ -1,20 +1,21 @@
-# FVE Výroba – Graf (měsíční členění, úzké zobrazení)
+# FVE Výroba – Graf (měsíční členění, zvýraznění jednoho maxima)
 
-Streamlit aplikace pro vizualizaci dat z FVE z CSV souboru s:
+Streamlit aplikace pro vizualizaci dat z FVE z CSV souboru:
 
-- grafy rozdělenými po jednotlivých měsících
-- tabulkami 10 nejvyšších hodnot výkonu pro každý měsíc
-- přehlednějším rozvržením (max. 80 % šířky stránky)
+- Grafy rozdělené po měsících
+- Tabulky s 10 nejvyššími hodnotami v každém měsíci
+- Zvýrazněno **pouze jedno maximum** v grafu (červený bod)
+- Rozvržení omezeno na 80 % šířky pro přehlednost
 
-## 📦 Lokální spuštění
+## 🧪 Spuštění
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## ☁️ Nasazení na Streamlit Cloud
+## ☁️ Streamlit Cloud nasazení
 
-1. Přejdi na [https://streamlit.io/cloud](https://streamlit.io/cloud)
-2. Vyber tento repozitář a soubor `app.py`
-3. Klikni „Deploy“
+1. Přihlas se na [https://streamlit.io/cloud](https://streamlit.io/cloud)
+2. Vyber repozitář, který obsahuje tento kód
+3. Klikni „Deploy“ a máš hotovo!

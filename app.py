@@ -44,13 +44,12 @@ if uploaded_file is not None:
 
             for (year, month), df_month in df.groupby([df.index.year, df.index.month]):
                 month_name = f"{calendar.month_name[month]} {year}"
-                df_daily_max = df_month['vykon_kW'].resample('D').max()
-                max_dates = df_month[df_month['vykon_kW'].isin(df_daily_max.values)].index
+                max_idx = df_month['vykon_kW'].idxmax()
 
                 st.subheader(f"Graf výkonu FVE (15minutová maxima) – {month_name}")
                 fig, ax = plt.subplots(figsize=(14, 6))
                 ax.plot(df_month.index, df_month['vykon_kW'], label='Výkon FVE [kW]', color='blue')
-                ax.scatter(max_dates, df_month.loc[max_dates, 'vykon_kW'], color='red', label='Denní maximum', zorder=5)
+                ax.scatter([max_idx], [df_month.loc[max_idx, 'vykon_kW']], color='red', label='Měsíční maximum', zorder=5)
                 ax.set_title(f'Profil výroby FVE – {month_name}')
                 ax.set_xlabel('Datum a čas')
                 ax.set_ylabel('Výkon [kW]')
